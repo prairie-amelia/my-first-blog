@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Poggle</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    </head>
+    <header>
+        <h1>Poggle</h1>
+        <p id="dedication">A word game dedicated to my favorite turbonerds</p>
+    </header>
+    <body>
+        <div id="board">
+            <div id="layout">
+                {% for row in board %}
+                    <div class="letter_row" id="letter_row_{{ forloop.counter }}">
+                    {% for letter in row %}
+                        <div class="letter_block col_{{ forloop.counter }}">{{ letter }}</div>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="current_word"></div>
+        <div id="enter_clear_buttons"><button id="clear">clear</button><a href = "/"><button id="enter_word">enter</button></a></div>
+        <div class="word_list">
+            {% for w in word_list %}
+                <div class="played_word">{{ w }}</div>
+            {% endfor %}
+        </div>
+    </body>
+    <footer>
+        <script src="{% static 'js/add_word.js' %}"></script>
+    </footer>
+</html>
