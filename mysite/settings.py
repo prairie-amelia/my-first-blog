@@ -60,7 +60,7 @@ MIDDLEWARE = [
 
 STATIC_URL = "static/"
 
-ROOT_URLCONF = 'pogglesite.urls'
+ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pogglesite.wsgi.application'
+WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 # Database
