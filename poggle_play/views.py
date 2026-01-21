@@ -1,6 +1,8 @@
 #w7erx56f/
-#w7erx56f/
+#hfsopm5z/
+#kslcyj4g/
 
+import requests
 from django.shortcuts import render
 import random
 from .models import Board, Word, Word_Board
@@ -69,7 +71,21 @@ def new_board():
     return boardInst
     #create new board object and return   
 
+def is_scrabble_valid(word):
+    print(word)
+    url = "https://scrabble.merriam.com/finder/" + word
+    res = requests.get(url)
+
+    info = str(res.content)
+
+    if "play_yes" in info:
+       return True
+    else:
+        return False
+
 def show_board(request, boardString=False):
+    player_name = request.COOKIES.get('player_name', None)
+    
     currentBoard = None
 
     if boardString:
@@ -107,27 +123,45 @@ def show_board(request, boardString=False):
     except:
         word_list = []
     
-    final_word_list = []
+    final_word_list_valid = []
+    final_word_list_invalid = []
 
     for w in word_list:
-        final_word_list.append(w.word.word_string)
+        if w.word.valid is None:
+            word_valid = is_scrabble_valid(w.word.word_string)
+            w.word.valid = word_valid
+            w.word.save()
+        
+        if w.word.valid:
+            final_word_list_valid.append(w.word.word_string)
+        else:
+            final_word_list_invalid.append(w.word.word_string)
     
-    final_word_list.sort()
-    
+    final_word_list_valid.sort()
+    final_word_list_invalid.sort()
 
-    return render(request, 'poggle_play/show_board.html', {'board': board_as_list, 'word_list': final_word_list})
+    return render(request, 'poggle_play/show_board.html', {'board': board_as_list, 'word_list': final_word_list_valid, 'invalid_word_list': final_word_list_invalid, 'player_name': player_name})
 
 def enter_word(request, boardString, wordString=False):
     if wordString == False:
         return show_board(request, boardString=False)
+    
+    if len(wordString) <= 3:
+        return show_board(request, boardString=False)
 
     wordString = wordString.lower()
-    word_pk = ''
+    word_obj = ''
 
     try:
-        word_pk = Word.objects.get(word_string = wordString)
+        word_obj = Word.objects.get(word_string = wordString)
+        if word_obj.valid is None:
+            word_valid = is_scrabble_valid(wordString)
+            word_obj.valid = word_valid
+            word_obj.save()
+
     except:
-        word_pk = Word.objects.create(word_string = wordString)
+        word_valid = is_scrabble_valid(wordString)
+        word_obj = Word.objects.create(word_string = wordString, valid = word_valid)
     
     board_pk = ''
     board_pk = Board.objects.get(link = boardString)
@@ -137,9 +171,9 @@ def enter_word(request, boardString, wordString=False):
         #show_board(request, boardString)
 
     try:
-        Word_Board.objects.get(board = board_pk, word = word_pk)
+        Word_Board.objects.get(board = board_pk, word = word_obj)
         return redirect('show_board', boardString = boardString)
     except:
-        Word_Board.objects.create(board = board_pk, word = word_pk)
+        Word_Board.objects.create(board = board_pk, word = word_obj)
 
     return redirect('show_board', boardString = boardString)
