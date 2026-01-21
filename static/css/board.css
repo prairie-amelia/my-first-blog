@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    background-color: rgb(206, 206, 206);
+}
+
+h1{
+    color: #0D4A3A;
+    font-size: 5em;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0.25em;
+}
+
+#dedication{
+    font-family: cursive;
+    font-size: 1.25em;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#board{
+    width: 40vw;
+    height: 40vw;
+    margin: 1.5em auto;
+}
+
+#layout{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.letter_row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0.25em auto;
+    width: 100%;
+}
+
+.letter_block{
+    background-color: white;
+    border: 2px solid black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 4.25vw;
+    font-weight: bold;
+    width: 8.2vw;
+    height: 8.2vw;
+    line-height: 8.2vw;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 10%;
+}
+
+.letter_block:hover{
+    cursor: pointer;
+}
+
+#current_word{
+    color: #0D4A3A;
+    font-size: 4em;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0.25em;
+    font-family: "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.selected{
+    border: 7px solid #0D4A3A;
+    background-color: #7ffedc;
+}
+
+#clear, #enter_word, #already_played{
+    padding: 0.2em 0;
+    font-size: 1em;
+    width: 10vw;
+    text-align: center;
+}
+
+#already_played{
+    color: grey;
+}
+
+#enter_clear_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 30vw;
+    margin: 0.5em auto;
+}
+
+.most_recent_letter{
+    box-shadow: 0 0 10px 10px yellow;
+}
+
+.word_list{
+    margin: 2.5em;
+}
+
+.running_count_valid{
+    font-size: 2em;
+    font-weight: bold;
+    color: #0D4A3A;
+    text-decoration: underline;
+}
+
+.running_count_invalid{
+    font-size: 2em;
+    font-weight: bold;
+    color: rgb(173, 26, 26);
+    text-decoration: underline;
+}
+
+.played_word{
+    font-size: 1.5em;
+}
