@@ -2,6 +2,9 @@
 #hfsopm5z/
 #kslcyj4g/
 
+#https://www.geeksforgeeks.org/python/how-to-deploy-django-project-on-pythonanywhere/
+#https://www.sqlpey.com/python/django-resolved-operational-error-no-such-table/
+
 import requests
 from django.shortcuts import render
 import random
@@ -72,16 +75,19 @@ def new_board():
     #create new board object and return   
 
 def is_scrabble_valid(word):
-    print(word)
-    url = "https://scrabble.merriam.com/finder/" + word
+    url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
     res = requests.get(url)
 
     info = str(res.content)
 
-    if "play_yes" in info:
-       return True
+    if "No Definitions Found" in info:
+       return False
     else:
-        return False
+        return True
+
+
+#https://api.dictionaryapi.dev/api/v2/entries/en/<word>
+
 
 def show_board(request, boardString=False):
     player_name = request.COOKIES.get('player_name', None)
