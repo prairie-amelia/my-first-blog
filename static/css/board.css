@@ -8,6 +8,10 @@ html{
     background-color: rgb(206, 206, 206);
 }
 
+body{
+    overflow-x: hidden;
+}
+
 h1{
     color: #0D4A3A;
     font-size: 15cqw;
@@ -15,10 +19,6 @@ h1{
     width: 100%;
     text-align: center;
     margin: 2cqw;
-}
-
-body{
-    overflow-x: hidden;
 }
 
 #dedication{
