@@ -7,7 +7,7 @@
     </head>
     <header>
         <h1>Poggle</h1>
-        <p id="dedication">A word game dedicated to my favorite turbonerds</p>
+        <p id="dedication">~ Dedicated to my favorite turbonerds ~</p>
     </header>
     <body>
         <div id="board">
@@ -21,19 +21,27 @@
                 {% endfor %}
             </div>
         </div>
-        <div id="current_word"></div>
-        <div id="enter_clear_buttons"><button id="clear">clear</button><a href = "/"><button id="enter_word">enter</button></a><button id="already_played">that word has already been found</button></div>
-        <div class="word_list valid">
-            <div class="running_count_valid">Number of Words Found: {{ word_list|length }}</div>
-            {% for w in word_list %}
-                <div class="played_word">{{ w }}</div>
-            {% endfor %}
+        <div id="word_area">
+            <div class="align_buttons"><button id="clear">clear</button></div>
+            <div id="current_word"></div>
+            <a class="align_buttons" href = "/"><button id="enter_word">✓</button></a>
         </div>
-        <div class="word_list">
-            <div class="running_count_invalid">Number of Invalid Words Submitted: {{ invalid_word_list|length }}</div>
-            {% for v in invalid_word_list %}
-                <div class="played_word">{{ v }}</div>
-            {% endfor %}
+        <p id="already_played">word already played</p>
+        <div class="divider"></div>
+        <div class="played_container">
+            <div class="word_list valid">
+                <div class="running_count_valid list_header">Words Played: {{ word_list|length }}</div>
+                {% for w in word_list %}
+                    <div class="played_word">{{ w }}</div>
+                {% endfor %}
+            </div>
+            <div class="divider"></div>
+            <div class="word_list">
+                <div class="running_count_invalid list_header">For Shame: {{ invalid_word_list|length }}</div>
+                {% for v in invalid_word_list %}
+                    <div class="played_word">{{ v }}</div>
+                {% endfor %}
+            </div>
         </div>
     </body>
     <footer>
